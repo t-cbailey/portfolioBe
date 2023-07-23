@@ -1,7 +1,13 @@
 [
   {
     "name": "Barkapedia",
-    "imgURL": "gs://personal-portfolio-9fb89.appspot.com/barkapedia.gif",
-    "spiel": "Barkapedia is a lifestyle app that helps users to find safe places to walk their dogs."
+    "imgURL": "https://storage.cloud.google.com/personal-portfolio-9fb89.appspot.com/barkapedia.gif?authuser=1",
+    "description": "Barkapedia is a lifestyle app that helps users to find safe places to walk their dogs. Spiel 2"
+  },
+
+  {
+    "name": "NCGames",
+    "imgURL": "https://storage.cloud.google.com/personal-portfolio-9fb89.appspot.com/ncgames.gif?authuser=1",
+    "description": "NC games is a reddit style board games app."
   }
 ]

@@ -1,4 +1,4 @@
-const { findAllProjects, findProjectByName } = require("./models");
+const { findAllProjects, findProjectById } = require("./models");
 import { NextFunction, Request, RequestHandler, Response } from "express";
 import endpoints from "./endpoints.json";
 
@@ -12,10 +12,9 @@ exports.getAllProjects = (req: Request, res: Response, next: NextFunction) => {
   });
 };
 
-exports.getProjectByName = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  findProjectByName().then();
+exports.getProjectById = (req: Request, res: Response, next: NextFunction) => {
+  const { project_id } = req.params;
+  findProjectById(project_id).then((data: any) => {
+    res.status(200).send({ data });
+  });
 };

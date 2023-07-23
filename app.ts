@@ -3,7 +3,7 @@ import cors from "cors";
 import { handleCustomErrors, handleServerErrors } from "./errors/error";
 const {
   getAllProjects,
-  getProjectByName,
+  getProjectById,
   getEndpoints,
 } = require("./controllers");
 
@@ -14,7 +14,7 @@ app.use(express.json());
 
 app.get("/api", getEndpoints);
 app.get("/api/projects", getAllProjects);
-app.get("/api/projects/:name", getProjectByName);
+app.get("/api/projects/:project_id", getProjectById);
 
 app.all("*", (req: Request, res: Response) =>
   res.status(404).send({ message: "Endpoint Not Found" })
