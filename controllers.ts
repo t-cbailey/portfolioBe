@@ -7,14 +7,18 @@ exports.getEndpoints = (req: Request, res: Response, next: NextFunction) => {
 };
 
 exports.getAllProjects = (req: Request, res: Response, next: NextFunction) => {
-  findAllProjects().then((data: any) => {
-    res.status(200).send({ data });
-  });
+  findAllProjects()
+    .then((data: any) => {
+      res.status(200).send({ data });
+    })
+    .catch(next);
 };
 
 exports.getProjectById = (req: Request, res: Response, next: NextFunction) => {
   const { project_id } = req.params;
-  findProjectById(project_id).then((data: any) => {
-    res.status(200).send({ data });
-  });
+  findProjectById(project_id)
+    .then((data: any) => {
+      res.status(200).send({ data });
+    })
+    .catch(next);
 };

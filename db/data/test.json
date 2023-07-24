@@ -2,12 +2,20 @@
   {
     "name": "Barkapedia",
     "imgURL": "https://storage.cloud.google.com/personal-portfolio-9fb89.appspot.com/barkapedia.gif?authuser=1",
-    "description": "Barkapedia is a lifestyle app that helps users to find safe places to walk their dogs. Spiel 2"
+    "description": "Barkapedia is a lifestyle app that helps users to find safe places to walk their dogs. With a strong emphasis on safety and community moderation, our Minimum Viable Product specification included allowing users to create an account, login, review and post park locations. To prevent abuse of the database, users must have a number of interections prior to being 'verified' and allowed to post new locations. Working in a team of 5 we opted to use Typescript, MUI and Firebase- all new to our team- in order to push our learning and creativity.",
+    "githubFE": "https://github.com/t-cbailey/Barkapedia-Front-End",
+    "githubBE": "https://github.com/t-cbailey/Barkapedia-Back-End",
+    "livelink": "http://barkapediatb.netlify.app/",
+    "stack": "React, Typescript, MUI, Jest, Supertest, NODE.js, Firebase"
   },
 
   {
     "name": "NCGames",
     "imgURL": "https://storage.cloud.google.com/personal-portfolio-9fb89.appspot.com/ncgames.gif?authuser=1",
-    "description": "NC games is a reddit style board games app."
+    "description": "NC games is a reddit style board games app.",
+    "githubFE": "URL",
+    "githubBE": "URL",
+    "livelink": "URL",
+    "stack": "React, Typescript, MUI, Jest, Supertest, NODE.js, Firebase"
   }
 ]
