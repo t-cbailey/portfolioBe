@@ -7,9 +7,13 @@ interface ProjectRequest {
   imageURL: string;
 }
 
-let projectData: Array<ProjectRequest> = require("./data/test.json");
+let projectData: Array<ProjectRequest>;
 
-// if (process.env.NODE_ENV !== "production") {} else {}
+if (process.env.NODE_ENV !== "production") {
+  projectData = require("./data/test.json");
+} else {
+  projectData = require("./data/prod.json");
+}
 
 const auth = admin.auth();
 
