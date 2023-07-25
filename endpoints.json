@@ -6,5 +6,15 @@
   "GET /api/projects": {
     "description": "seves an array containing project objects.",
     "example response": {}
+  },
+  "GET /api/projects/project_id": {
+    "description": "seves a single project.",
+    "example response": {}
+  },
+  "POST /api/contact": {
+    "email": "example@hotmail.com",
+    "name": "tim bailey",
+    "messageBody": "i love pie",
+    "subject": "foody things"
   }
 }

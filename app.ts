@@ -5,6 +5,7 @@ const {
   getAllProjects,
   getProjectById,
   getEndpoints,
+  sendContactFrom,
 } = require("./controllers");
 
 const app: Express = express();
@@ -15,6 +16,7 @@ app.use(express.json());
 app.get("/api", getEndpoints);
 app.get("/api/projects", getAllProjects);
 app.get("/api/projects/:project_id", getProjectById);
+app.post("/api/contact", sendContactFrom);
 
 app.all("*", (req: Request, res: Response) =>
   res.status(404).send({ message: "Endpoint Not Found" })

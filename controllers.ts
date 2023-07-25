@@ -1,4 +1,4 @@
-const { findAllProjects, findProjectById } = require("./models");
+const { findAllProjects, findProjectById, sendEmail } = require("./models");
 import { NextFunction, Request, RequestHandler, Response } from "express";
 import endpoints from "./endpoints.json";
 
@@ -21,4 +21,11 @@ exports.getProjectById = (req: Request, res: Response, next: NextFunction) => {
       res.status(200).send({ data });
     })
     .catch(next);
+};
+
+exports.sendContactFrom = (req: Request, res: Response, next: NextFunction) => {
+  const { body } = req;
+  sendEmail(body).then((data: any) => {
+    res.status(202).send(data);
+  });
 };

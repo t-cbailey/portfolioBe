@@ -1,5 +1,6 @@
 import db from "./db/connection";
 import { Project, ProjectRes } from "./types/CustomTypes";
+const nodemailer = require("nodemailer");
 
 exports.findAllProjects = (): Promise<Project[]> => {
   return db
@@ -31,4 +32,34 @@ exports.findProjectById = (project_id: string): Promise<Project> => {
         msg: `No park found for project name: ${project_id}`,
       });
     });
+};
+
+exports.sendEmail = (body: any) => {
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: "timbaileydevmailer@gmail.com",
+      pass: "ywyjbdhpctijrcoc",
+    },
+  });
+
+  console.log(body.name);
+  async function main() {
+    // send mail with defined transport object
+    const info = await transporter.sendMail({
+      from: `${body.name} <${body.email}>`, // sender address
+      to: "timbaileydev@gmail.com", // list of receivers
+      subject: `${body.subject}`, // Subject line
+      text: `${body.messageBody}`, // plain text body
+      // html: "<b>Hello world?</b>", // html body
+    });
+
+    console.log("Message sent: %s", info.messageId);
+  }
+
+  return main()
+    .then(() => {
+      return "message sent";
+    })
+    .catch(console.error);
 };
