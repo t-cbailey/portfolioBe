@@ -12,10 +12,10 @@
   {
     "name": "NCGames",
     "imgURL": "https://storage.cloud.google.com/personal-portfolio-9fb89.appspot.com/ncgames.gif?authuser=1",
-    "description": "NC games is a reddit style board games app.",
-    "githubFE": "URL",
-    "githubBE": "URL",
-    "livelink": "URL",
-    "stack": "React, Typescript, MUI, Jest, Supertest, NODE.js, Firebase"
+    "description": "NC games is a reddit style board games app, written entirely by myself.",
+    "githubFE": "https://github.com/t-cbailey/fe-NC-Games",
+    "githubBE": "https://github.com/t-cbailey/backend-NC-Games",
+    "livelink": "https://timbaileyncgames.netlify.app/",
+    "stack": "React, JavaScript, CSS, Jest, Supertest, NODE.js, PostgreSQL"
   }
 ]
