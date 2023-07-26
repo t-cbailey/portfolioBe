@@ -11,7 +11,7 @@ const {
   Filter,
 } = require("firebase-admin/firestore");
 
-const serviceAccount = require("../serviceAccount.json");
+import serviceAccount from "../serviceAccount.json";
 
 if (process.env.NODE_ENV !== "production") {
   process.env.FIRESTORE_EMULATOR_HOST = "127.0.0.1:8080";
@@ -19,7 +19,7 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
+  credential: cert(serviceAccount),
 });
 
 const db: firestore.Firestore = getFirestore();
