@@ -9,6 +9,7 @@ exports.getEndpoints = (req: Request, res: Response, next: NextFunction) => {
 exports.getAllProjects = (req: Request, res: Response, next: NextFunction) => {
   findAllProjects()
     .then((data: any) => {
+      console.log("in controller");
       res.status(200).send({ data });
     })
     .catch(next);

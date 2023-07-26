@@ -7,11 +7,15 @@ interface ProjectRequest {
   imageURL: string;
 }
 
-let projectData: Array<ProjectRequest> = require("./data/test.json");
+let projectData: Array<ProjectRequest>;
 
-// if (process.env.NODE_ENV !== "production") {} else {}
-
-const auth = admin.auth();
+if (process.env.NODE_ENV !== "production") {
+  console.log("using test data");
+  projectData = require("./data/test.json");
+} else {
+  console.log("using production data");
+  projectData = require("./data/prod.json");
+}
 
 function deleteCollections(): Promise<FirebaseFirestore.WriteResult[][]> {
   return db.listCollections().then((collections) => {
@@ -21,9 +25,11 @@ function deleteCollections(): Promise<FirebaseFirestore.WriteResult[][]> {
         querySnapshot.docs.forEach((doc) => {
           batch.delete(doc.ref);
         });
+
         return batch.commit();
       })
     );
+
     return Promise.all(projDeletionPromises);
   });
 }
@@ -33,6 +39,7 @@ function createProjects(): Promise<FirebaseFirestore.WriteResult[]> {
     const pid = `project_${index + 1}`;
     return db.collection("projects").doc(pid).set(project);
   });
+
   return Promise.all(parkCreationPromises);
 }
 
