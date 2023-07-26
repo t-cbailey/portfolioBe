@@ -10,16 +10,15 @@ interface ProjectRequest {
 let projectData: Array<ProjectRequest>;
 
 if (process.env.NODE_ENV !== "production") {
-  console.log("in test");
+  console.log("using test data");
   projectData = require("./data/test.json");
 } else {
-  console.log("in production");
+  console.log("using production data");
   projectData = require("./data/prod.json");
 }
 
 function deleteCollections(): Promise<FirebaseFirestore.WriteResult[][]> {
   return db.listCollections().then((collections) => {
-    console.log("got collections list");
     const projDeletionPromises = collections.map((collection) =>
       collection.get().then((querySnapshot) => {
         const batch = db.batch();
@@ -47,7 +46,6 @@ function createProjects(): Promise<FirebaseFirestore.WriteResult[]> {
 export const seedDatabase = (): Promise<void> => {
   return deleteCollections()
     .then(() => {
-      console.log("delete successful");
       createProjects();
     })
     .then(() => console.log("Seed successful"))
