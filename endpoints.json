@@ -4,7 +4,7 @@
   },
 
   "GET /api/projects": {
-    "description": "seves an array containing project objects.",
+    "description": "serves an array containing project objects.",
     "example response": [
       {
         "id": "project_1",
@@ -19,7 +19,7 @@
     ]
   },
   "GET /api/projects/project_id": {
-    "description": "seves a single project.",
+    "description": "serves a single project.",
     "example response": {
       "imgURL": "link",
       "stack": "React, Typescript, MUI, Jest, Supertest, NODE.js, Firebase",
@@ -31,9 +31,12 @@
     }
   },
   "POST /api/contact": {
-    "email": "example@hotmail.com",
-    "name": "tim bailey",
-    "messageBody": "i love pie",
-    "subject": "foody things"
+    "description": "sends an email to my email account.",
+    "body": {
+      "email": "example@hotmail.com",
+      "name": "yourname",
+      "messageBody": "message",
+      "subject": "a subject"
+    }
   }
 }
