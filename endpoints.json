@@ -5,11 +5,30 @@
 
   "GET /api/projects": {
     "description": "seves an array containing project objects.",
-    "example response": {}
+    "example response": [
+      {
+        "id": "project_1",
+        "imgURL": "link",
+        "stack": "React, Typescript, MUI, Jest, Supertest, NODE.js, Firebase",
+        "name": "Barkapedia",
+        "description": "a description",
+        "githubFE": "link",
+        "livelink": "link",
+        "githubBE": "link"
+      }
+    ]
   },
   "GET /api/projects/project_id": {
     "description": "seves a single project.",
-    "example response": {}
+    "example response": {
+      "imgURL": "link",
+      "stack": "React, Typescript, MUI, Jest, Supertest, NODE.js, Firebase",
+      "name": "Barkapedia",
+      "description": "a description",
+      "githubFE": "link",
+      "livelink": "link",
+      "githubBE": "link"
+    }
   },
   "POST /api/contact": {
     "email": "example@hotmail.com",
