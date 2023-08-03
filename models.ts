@@ -1,5 +1,5 @@
 import db from "./db/connection";
-import { Project, ProjectRes } from "./types/CustomTypes";
+import { EmailBody, Project, ProjectRes } from "./types/CustomTypes";
 const nodemailer = require("nodemailer");
 import { auth } from "./EmailAuth.json";
 
@@ -35,7 +35,7 @@ exports.findProjectById = (project_id: string): Promise<Project> => {
     });
 };
 
-exports.sendEmail = (body: any) => {
+exports.sendEmail = (body: EmailBody) => {
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth,
