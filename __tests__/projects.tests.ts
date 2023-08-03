@@ -48,13 +48,13 @@ describe("GET /api/projects:project_id", () => {
   });
 });
 
-describe.only("POST /api/contact", () => {
+describe("POST /api/contact", () => {
   test("POST /api/contact", () => {
     const data = {
       email: "example@hotmail.com",
       name: "tim bailey",
-      messageBody: "i love pie",
-      subject: "foody things",
+      messageBody: "test email",
+      subject: "food is tasty",
     };
     return request(app)
       .post("/api/contact")
