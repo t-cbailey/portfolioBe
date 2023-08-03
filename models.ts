@@ -1,6 +1,7 @@
 import db from "./db/connection";
 import { Project, ProjectRes } from "./types/CustomTypes";
 const nodemailer = require("nodemailer");
+import { auth } from "./EmailAuth.json";
 
 exports.findAllProjects = (): Promise<Project[]> => {
   return db
@@ -37,10 +38,7 @@ exports.findProjectById = (project_id: string): Promise<Project> => {
 exports.sendEmail = (body: any) => {
   const transporter = nodemailer.createTransport({
     service: "gmail",
-    auth: {
-      user: "timbaileydevmailer@gmail.com",
-      pass: "ywyjbdhpctijrcoc",
-    },
+    auth,
   });
 
   async function main() {
