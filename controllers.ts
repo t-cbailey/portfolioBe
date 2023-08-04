@@ -26,7 +26,9 @@ exports.getProjectById = (req: Request, res: Response, next: NextFunction) => {
 
 exports.sendContactFrom = (req: Request, res: Response, next: NextFunction) => {
   const { body } = req;
-  sendEmail(body).then((data: string) => {
-    res.status(202).send(data);
-  });
+  sendEmail(body)
+    .then((data: string) => {
+      res.status(202).send(data);
+    })
+    .catch(next);
 };

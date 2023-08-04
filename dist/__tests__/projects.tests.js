@@ -47,3 +47,20 @@ describe("GET /api/projects:project_id", () => {
         });
     });
 });
+describe.only("POST /api/contact", () => {
+    test("POST /api/contact", () => {
+        const data = {
+            email: "example@hotmail.com",
+            name: "tim bailey",
+            messageBody: "test email",
+            subject: "food is tasty",
+        };
+        return (0, supertest_1.default)(app_1.default)
+            .post("/api/contact")
+            .send(data)
+            .expect(202)
+            .then((res) => {
+            expect(res.text).toBe("message sent");
+        });
+    });
+});

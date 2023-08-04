@@ -48,7 +48,7 @@ describe("GET /api/projects:project_id", () => {
   });
 });
 
-describe("POST /api/contact", () => {
+describe.only("POST /api/contact", () => {
   test("POST /api/contact", () => {
     const data = {
       email: "example@hotmail.com",
