@@ -10,6 +10,7 @@ const handleCustomErrors = (err, req, res, next) => {
 };
 exports.handleCustomErrors = handleCustomErrors;
 const handleServerErrors = (err, req, res) => {
+    console.log("in err");
     return res.status(500).send({ msg: "Internal Server Error" });
 };
 exports.handleServerErrors = handleServerErrors;

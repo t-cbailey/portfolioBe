@@ -17,5 +17,6 @@ export const handleServerErrors: ErrorRequestHandler = (
   req: Request,
   res: Response
 ) => {
+  console.log("in err");
   return res.status(500).send({ msg: "Internal Server Error" });
 };

@@ -3,17 +3,39 @@
         "description": "serves up a json representation of all the available endpoints of the api"
     },
     "GET /api/projects": {
-        "description": "seves an array containing project objects.",
-        "example response": {}
+        "description": "serves an array containing project objects.",
+        "example response": [
+            {
+                "id": "project_1",
+                "imgURL": "link",
+                "stack": "React, Typescript, MUI, Jest, Supertest, NODE.js, Firebase",
+                "name": "Barkapedia",
+                "description": "a description",
+                "githubFE": "link",
+                "livelink": "link",
+                "githubBE": "link"
+            }
+        ]
     },
     "GET /api/projects/project_id": {
-        "description": "seves a single project.",
-        "example response": {}
+        "description": "serves a single project.",
+        "example response": {
+            "imgURL": "link",
+            "stack": "React, Typescript, MUI, Jest, Supertest, NODE.js, Firebase",
+            "name": "Barkapedia",
+            "description": "a description",
+            "githubFE": "link",
+            "livelink": "link",
+            "githubBE": "link"
+        }
     },
     "POST /api/contact": {
-        "email": "example@hotmail.com",
-        "name": "tim bailey",
-        "messageBody": "i love pie",
-        "subject": "foody things"
+        "description": "sends an email to my email account.",
+        "body": {
+            "email": "example@hotmail.com",
+            "name": "yourname",
+            "messageBody": "message",
+            "subject": "a subject"
+        }
     }
 }

@@ -30,7 +30,7 @@ exports.findProjectById = (project_id: string): Promise<Project> => {
       }
       return Promise.reject({
         status: 404,
-        msg: `No park found for project name: ${project_id}`,
+        msg: `No project found for project name: ${project_id}`,
       });
     });
 };
@@ -42,21 +42,23 @@ exports.sendEmail = (body: EmailBody) => {
   });
 
   async function main() {
-    // send mail with defined transport object
-    const info = await transporter.sendMail({
-      from: `${body.name} <${body.email}>`, // sender address
-      to: "timbaileydev@gmail.com", // list of receivers
-      subject: `${body.subject}`, // Subject line
-      text: `${body.messageBody}`, // plain text body
-      // html: "<b>Hello world?</b>", // html body
-    });
-
-    console.log("Message sent: %s", info.messageId);
+    const info = await transporter
+      .sendMail({
+        from: `${body.name} <${body.email}>`,
+        to: "timbaileydev@gmail.com",
+        subject: `${body.subject}`,
+        text: `${body.messageBody}`,
+      })
+      .catch((err: any) => {
+        return Promise.reject({ status: 500, msg: err });
+      });
   }
 
   return main()
     .then(() => {
       return "message sent";
     })
-    .catch(console.error);
+    .catch((err) => {
+      return Promise.reject({ status: 500, msg: err });
+    });
 };

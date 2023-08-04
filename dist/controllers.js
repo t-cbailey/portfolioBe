@@ -25,7 +25,9 @@ exports.getProjectById = (req, res, next) => {
 };
 exports.sendContactFrom = (req, res, next) => {
     const { body } = req;
-    sendEmail(body).then((data) => {
+    sendEmail(body)
+        .then((data) => {
         res.status(202).send(data);
-    });
+    })
+        .catch(next);
 };
