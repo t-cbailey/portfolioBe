@@ -1,7 +1,8 @@
 [
   {
     "name": "Barkapedia",
-    "imgURL": "barkapedia.gif",
+    "imgURLmp4": "barkapedia.mp4",
+    "imgURLwebm": "barkapedia.webm",
     "description": "Barkapedia is a lifestyle app that helps users to find safe places to walk their dogs. With a strong emphasis on safety and community moderation, our Minimum Viable Product specification included allowing users to create an account, login, review and post park locations. To prevent abuse of the database, users must have a number of interections prior to being 'verified' and allowed to post new locations. Working in a team of 5 we opted to use Typescript, MUI and Firebase- all new to our team- in order to push our learning and creativity.",
     "githubFE": "https://github.com/t-cbailey/Barkapedia-Front-End",
     "githubBE": "https://github.com/t-cbailey/Barkapedia-Back-End",
@@ -11,7 +12,8 @@
 
   {
     "name": "NCGames",
-    "imgURL": "ncgames.gif",
+    "imgURLmp4": "ncgames.mp4",
+    "imgURLwebm": "ncgames.webm",
     "description": "NC games is a Reddit style app, that allows users to sign in post and review their favourite board games. I built the app alone as a sprint on the Northcoders software developer bootcamp using React, JavaScript, CSS and HTML. The Database is PostreSQL, and the backend is Express. The app uses Optimistic rendering for the rating and add comment functions, and is fully responsive in its design for a smooth user experience.",
     "githubFE": "https://github.com/t-cbailey/fe-NC-Games",
     "githubBE": "https://github.com/t-cbailey/backend-NC-Games",
@@ -20,7 +22,8 @@
   },
   {
     "name": "timbailey.dev (project-ception)",
-    "imgURL": "portfolio.gif",
+    "imgURLmp4": "portfolio.mp4",
+    "imgURLwebm": "portfolio.webm",
     "description": "timbailey.dev is a portfolio website to showcase my work- you're looking at it! It's a little over engineered for a basic site, but I wanted to practice building a full stack app, and it will eventually allow me to sign in and quickly add projects to the database. I also used vanilla CSS for the practice. ",
     "githubFE": "https://github.com/t-cbailey/portfolio",
     "githubBE": "https://github.com/t-cbailey/portfolioBe",
@@ -29,7 +32,8 @@
   },
   {
     "name": "EONET Front End",
-    "imgURL": "EONET.gif",
+    "imgURLmp4": "eonet.mp4",
+    "imgURLwebm": "eonet.webm",
     "description": "I built a front end for NASA's EONET API, with the main goal of investigating mapping with React-Leaflet. Functionality includes filtering by category, current/historic, and geographic location. As the database is so large I implemented a limit function with 2000 results being the most accerssible at one time.",
     "githubFE": "https://github.com/t-cbailey/nasaData",
     "githubBE": "n/a",

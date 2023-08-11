@@ -12,8 +12,8 @@
 
   {
     "name": "NCGames",
-    "imgURLmp4": "barkapedia.mp4",
-    "imgURLwebm": "barkapedia.webm",
+    "imgURLmp4": "ncgames.mp4",
+    "imgURLwebm": "ncgames.webm",
     "description": "NC games is a Reddit style app, that allows users to sign in post and review their favourite board games. I built the app alone as a sprint on the Northcoders software developer bootcamp using React, JavaScript, CSS and HTML. The Database is PostreSQL, and the backend is Express. The app uses Optimistic rendering for the rating and add comment functions, and is fully responsive in its design for a smooth user experience.",
     "githubFE": "https://github.com/t-cbailey/fe-NC-Games",
     "githubBE": "https://github.com/t-cbailey/backend-NC-Games",
