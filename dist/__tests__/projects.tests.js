@@ -21,7 +21,8 @@ describe("GET /api/projects", () => {
             expect(res.body.data.length).toBe(2);
             res.body.data.forEach((project) => {
                 expect(typeof project.name).toBe("string");
-                expect(typeof project.imgURL).toBe("string");
+                expect(typeof project.imgURLwebm).toBe("string");
+                expect(typeof project.imgURLmp4).toBe("string");
                 expect(typeof project.description).toBe("string");
                 expect(typeof project.githubBE).toBe("string");
                 expect(typeof project.githubFE).toBe("string");
@@ -38,7 +39,8 @@ describe("GET /api/projects:project_id", () => {
             .expect(200)
             .then((res) => {
             expect(typeof res.body.data.name).toBe("string");
-            expect(typeof res.body.data.imgURL).toBe("string");
+            expect(typeof res.body.data.imgURLwebm).toBe("string");
+            expect(typeof res.body.data.imgURLmp4).toBe("string");
             expect(typeof res.body.data.description).toBe("string");
             expect(typeof res.body.data.githubBE).toBe("string");
             expect(typeof res.body.data.githubFE).toBe("string");
@@ -47,7 +49,7 @@ describe("GET /api/projects:project_id", () => {
         });
     });
 });
-describe.only("POST /api/contact", () => {
+describe("POST /api/contact", () => {
     test("POST /api/contact", () => {
         const data = {
             email: "example@hotmail.com",

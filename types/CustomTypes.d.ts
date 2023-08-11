@@ -5,7 +5,8 @@ export interface CustomError {
 
 export interface Project {
   name: string;
-  imgURL: string;
+  imgURLwebm: string;
+  imgURLmp4: string;
   description: string;
   githubFE: string;
   githubBE: string;
