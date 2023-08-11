@@ -26,5 +26,14 @@
     "githubBE": "https://github.com/t-cbailey/portfolioBe",
     "livelink": "www.timbailey.dev/",
     "stack": "React, TypeScript, CSS, Jest, Supertest, NODE.js, Firebase"
+  },
+  {
+    "name": "EONET Front End",
+    "imgURL": "EONET.gif",
+    "description": "I built a front end for NASA's EONET API, with the main goal of investigating mapping with React-Leaflet. Functionality includes filtering by category, current/historic, and geographic location. As the database is so large I implemented a limit function with 2000 results being the most accerssible at one time.",
+    "githubFE": "https://github.com/t-cbailey/nasaData",
+    "githubBE": "n/a",
+    "livelink": "https://eonetevents.netlify.app/",
+    "stack": "React, TypeScript, CSS, NODE.js, React-leaflet, MUI"
   }
 ]
