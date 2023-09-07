@@ -93,3 +93,17 @@ export const getUserByID = (user_id: string): Promise<User> => {
       });
     });
 };
+
+export const postNewProject = (project: Project) => {
+  const projectRef = db.collection("projects");
+  return projectRef.get().then((snapshot) => {
+    const project_id = `project_${snapshot.size + 1}`;
+    const newProject = { id: project_id, ...project };
+    return projectRef
+      .doc(project_id)
+      .set(newProject)
+      .then(() => {
+        return "created successfully";
+      });
+  });
+};

@@ -51,3 +51,43 @@ describe("GET /api/projects:project_id", () => {
       });
   });
 });
+
+describe("POST /api/projects", () => {
+  test("POST /api/projects", () => {
+    const input = {
+      name: "Test1",
+      imgURLmp4: "TEST.mp4",
+      imgURLwebm: "ncgames.webm",
+      description: "TEST description",
+      githubFE: "testlink",
+      githubBE: "testlink",
+      livelink: "testlink",
+      stack: "React, JavaScript, CSS, Jest, Supertest, NODE.js, PostgreSQL",
+    };
+    return request(app)
+      .post("/api/projects")
+      .send(input)
+      .expect(201)
+      .then((res) => {
+        expect(res.text).toBe("created successfully");
+      })
+      .then(() => {
+        return request(app)
+          .get("/api/projects")
+          .expect(200)
+          .then((res) => {
+            expect(res.body.data.length).toBe(3);
+            res.body.data.forEach((project: ProjectRes) => {
+              expect(typeof project.name).toBe("string");
+              expect(typeof project.imgURLwebm).toBe("string");
+              expect(typeof project.imgURLmp4).toBe("string");
+              expect(typeof project.description).toBe("string");
+              expect(typeof project.githubBE).toBe("string");
+              expect(typeof project.githubFE).toBe("string");
+              expect(typeof project.livelink).toBe("string");
+              expect(typeof project.stack).toBe("string");
+            });
+          });
+      });
+  });
+});

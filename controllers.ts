@@ -4,6 +4,7 @@ const {
   sendEmail,
   findAllUsers,
   getUserByID,
+  postNewProject,
 } = require("./models");
 import { NextFunction, Request, RequestHandler, Response } from "express";
 import endpoints from "./endpoints.json";
@@ -60,6 +61,19 @@ export const getUser: RequestHandler = (
   getUserByID(user_id)
     .then((returnedUser: User) => {
       res.status(200).send(returnedUser);
+    })
+    .catch(next);
+};
+
+export const postProject = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { body } = req;
+  postNewProject(body)
+    .then((response: string) => {
+      res.status(201).send(response);
     })
     .catch(next);
 };
