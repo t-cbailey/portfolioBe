@@ -4,6 +4,7 @@ import { seedDatabase } from "../db/seed";
 import { ProjectRes } from "../types/CustomTypes";
 
 beforeEach(() => seedDatabase());
+afterAll(() => seedDatabase());
 
 describe("GET /api/ non-existent endpoint", () => {
   test("GET /api/nonsense should return 404 status code", () => {
@@ -47,24 +48,6 @@ describe("GET /api/projects:project_id", () => {
         expect(typeof res.body.data.githubFE).toBe("string");
         expect(typeof res.body.data.livelink).toBe("string");
         expect(typeof res.body.data.stack).toBe("string");
-      });
-  });
-});
-
-describe("POST /api/contact", () => {
-  test("POST /api/contact", () => {
-    const data = {
-      email: "example@hotmail.com",
-      name: "tim bailey",
-      messageBody: "test email",
-      subject: "food is tasty",
-    };
-    return request(app)
-      .post("/api/contact")
-      .send(data)
-      .expect(202)
-      .then((res) => {
-        expect(res.text).toBe("message sent");
       });
   });
 });

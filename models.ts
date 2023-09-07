@@ -1,5 +1,5 @@
 import db from "./db/connection";
-import { EmailBody, Project, ProjectRes } from "./types/CustomTypes";
+import { EmailBody, Project, ProjectRes, User } from "./types/CustomTypes";
 const nodemailer = require("nodemailer");
 import { auth } from "./EmailAuth.json";
 
@@ -60,5 +60,36 @@ exports.sendEmail = (body: EmailBody) => {
     })
     .catch((err) => {
       return Promise.reject({ status: 500, msg: err });
+    });
+};
+
+exports.findAllUsers = (): Promise<User[]> => {
+  return db
+    .collection("users")
+    .get()
+    .then((snapshot) =>
+      snapshot.docs.map((doc) => {
+        const id = doc.id;
+        const data = doc.data();
+        return { id, ...data } as User;
+      })
+    );
+};
+
+export const getUserByID = (user_id: string): Promise<User> => {
+  return db
+    .collection("users")
+    .doc(user_id)
+    .get()
+    .then((snapshot) => {
+      if (snapshot.exists) {
+        const id = snapshot.id;
+        const data = snapshot.data();
+        return { id, ...data } as User;
+      }
+      return Promise.reject({
+        status: 404,
+        msg: `No user found for user_id: ${user_id}`,
+      });
     });
 };
