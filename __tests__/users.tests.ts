@@ -19,7 +19,7 @@ describe("Users tests", () => {
           expect(Array.isArray(body)).toBe(true);
           body.forEach((user: User) => {
             expect(typeof user.id).toBe("string");
-            expect(typeof user.username).toBe("string");
+            expect(typeof user.email).toBe("string");
             expect(typeof user.password).toBe("string");
           });
         });
@@ -36,7 +36,7 @@ describe("Users tests", () => {
         .then((response) => {
           const user: User = response.body;
           expect(typeof user.id).toBe("string");
-          expect(typeof user.username).toBe("string");
+          expect(typeof user.email).toBe("string");
           expect(typeof user.password).toBe("string");
         });
     });
