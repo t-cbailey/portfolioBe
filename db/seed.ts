@@ -15,6 +15,8 @@ interface UserRequest {
 let projectData: Array<ProjectRequest>;
 let usersData: Array<UserRequest>;
 
+const auth = admin.auth();
+
 if (process.env.NODE_ENV !== "production") {
   console.log("using test data");
   projectData = require("./data/projects-test.json");
@@ -22,7 +24,7 @@ if (process.env.NODE_ENV !== "production") {
 } else {
   console.log("using production data");
   projectData = require("./data/projects-prod.json");
-  usersData = require("./data/users-test.json");
+  usersData = require("./data/users-prod.json");
 }
 
 function deleteCollections(): Promise<FirebaseFirestore.WriteResult[][]> {
@@ -42,6 +44,15 @@ function deleteCollections(): Promise<FirebaseFirestore.WriteResult[][]> {
   });
 }
 
+function deleteAllUsers(): Promise<void[]> {
+  return auth.listUsers().then((listUsersResult) => {
+    const userDeletionPromises = listUsersResult.users.map((userRecord) => {
+      return auth.deleteUser(userRecord.uid);
+    });
+    return Promise.all(userDeletionPromises);
+  });
+}
+
 function createProjects(): Promise<FirebaseFirestore.WriteResult[]> {
   const projectCreationPromises = projectData.map((project, index) => {
     const pid = `project_${index + 1}`;
@@ -52,20 +63,30 @@ function createProjects(): Promise<FirebaseFirestore.WriteResult[]> {
 }
 function createUsers(): Promise<FirebaseFirestore.WriteResult[]> {
   const userCreationPromises = usersData.map((user, index) => {
-    const pid = `user_${index + 1}`;
-    return db.collection("users").doc(pid).set(user);
+    const uid = `user_${index + 1}`;
+    return auth
+      .createUser({
+        ...user,
+        uid: uid,
+      })
+      .then((createdUser) => {
+        const { password, ...newUser } = user;
+        return db.collection("users").doc(createdUser.uid).set(newUser);
+      });
   });
-
   return Promise.all(userCreationPromises);
 }
 
 export const seedDatabase = (): Promise<void> => {
   return deleteCollections()
     .then(() => {
-      createProjects();
+      return deleteAllUsers();
     })
     .then(() => {
-      createUsers();
+      return createProjects();
+    })
+    .then(() => {
+      return createUsers();
     })
     .then(() => console.log("Seed successful"))
     .catch((error) => console.error("Error seeding the database:", error));
