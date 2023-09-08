@@ -12,6 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.deleteProjectById = exports.postNewProject = exports.getUserByID = void 0;
 const connection_1 = __importDefault(require("./db/connection"));
 const nodemailer = require("nodemailer");
 const EmailAuth_json_1 = require("./EmailAuth.json");
@@ -72,3 +73,72 @@ exports.sendEmail = (body) => {
         return Promise.reject({ status: 500, msg: err });
     });
 };
+exports.findAllUsers = () => {
+    return connection_1.default
+        .collection("users")
+        .get()
+        .then((snapshot) => snapshot.docs.map((doc) => {
+        const id = doc.id;
+        const data = doc.data();
+        return Object.assign({ id }, data);
+    }));
+};
+const getUserByID = (user_id) => {
+    return connection_1.default
+        .collection("users")
+        .doc(user_id)
+        .get()
+        .then((snapshot) => {
+        if (snapshot.exists) {
+            const id = snapshot.id;
+            const data = snapshot.data();
+            return Object.assign({ id }, data);
+        }
+        return Promise.reject({
+            status: 404,
+            msg: `No user found for user_id: ${user_id}`,
+        });
+    });
+};
+exports.getUserByID = getUserByID;
+const postNewProject = (project) => {
+    const projectRef = connection_1.default.collection("projects");
+    return projectRef.get().then((snapshot) => {
+        let newDocId = snapshot.docs.length;
+        snapshot.docs
+            .map((doc) => {
+            const regex = /[0-9]+/g;
+            return doc.id.match(regex);
+        })
+            .flat()
+            .find((id, i) => {
+            if (id && +id !== i) {
+                return (newDocId = i);
+            }
+        });
+        const newProject = Object.assign({ id: `project_${newDocId}` }, project);
+        return projectRef
+            .doc(`project_${newDocId}`)
+            .set(newProject)
+            .then(() => {
+            return "created successfully";
+        })
+            .catch((err) => {
+            return Promise.reject({ status: 500, msg: err });
+        });
+    });
+};
+exports.postNewProject = postNewProject;
+const deleteProjectById = (project_id) => {
+    return connection_1.default
+        .collection("projects")
+        .doc(project_id)
+        .delete()
+        .then(() => {
+        return `${project_id} deleted successfully`;
+    })
+        .catch((err) => {
+        return Promise.reject({ status: 500, msg: err });
+    });
+};
+exports.deleteProjectById = deleteProjectById;

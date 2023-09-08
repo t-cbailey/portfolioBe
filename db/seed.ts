@@ -55,7 +55,7 @@ function deleteAllUsers(): Promise<void[]> {
 
 function createProjects(): Promise<FirebaseFirestore.WriteResult[]> {
   const projectCreationPromises = projectData.map((project, index) => {
-    const pid = `project_${index + 1}`;
+    const pid = `project_${index}`;
     return db.collection("projects").doc(pid).set(project);
   });
 

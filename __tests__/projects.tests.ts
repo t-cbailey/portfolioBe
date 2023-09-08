@@ -1,7 +1,7 @@
 import request from "supertest";
 import app from "../app";
 import { seedDatabase } from "../db/seed";
-import { ProjectRes } from "../types/CustomTypes";
+import { ProjectRes, Project } from "../types/CustomTypes";
 
 beforeEach(() => seedDatabase());
 afterAll(() => seedDatabase());
@@ -54,7 +54,7 @@ describe("GET /api/projects:project_id", () => {
 
 describe("POST /api/projects", () => {
   test("POST /api/projects", () => {
-    const input = {
+    const input: Project = {
       name: "Test1",
       imgURLmp4: "TEST.mp4",
       imgURLwebm: "ncgames.webm",
@@ -113,7 +113,6 @@ describe("DELETE /api/projects/:project_id", () => {
           .get("/api/projects/project_1")
           .expect(404)
           .then((res) => {
-            console.log(res);
             expect(res.body).toEqual({
               msg: "No project found for project name: project_1",
             });

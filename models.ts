@@ -99,10 +99,22 @@ export const getUserByID = (user_id: string): Promise<User> => {
 export const postNewProject = (project: Project) => {
   const projectRef = db.collection("projects");
   return projectRef.get().then((snapshot) => {
-    const project_id = `project_${snapshot.size + 1}`;
-    const newProject = { id: project_id, ...project };
+    let newDocId = snapshot.docs.length;
+    snapshot.docs
+      .map((doc) => {
+        const regex = /[0-9]+/g;
+        return doc.id.match(regex);
+      })
+      .flat()
+      .find((id, i) => {
+        if (id && +id !== i) {
+          return (newDocId = i);
+        }
+      });
+
+    const newProject = { id: `project_${newDocId}`, ...project };
     return projectRef
-      .doc(project_id)
+      .doc(`project_${newDocId}`)
       .set(newProject)
       .then(() => {
         return "created successfully";
