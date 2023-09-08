@@ -5,6 +5,7 @@ const {
   findAllUsers,
   getUserByID,
   postNewProject,
+  deleteProjectById,
 } = require("./models");
 import { NextFunction, Request, RequestHandler, Response } from "express";
 import endpoints from "./endpoints.json";
@@ -74,6 +75,19 @@ export const postProject = (
   postNewProject(body)
     .then((response: string) => {
       res.status(201).send(response);
+    })
+    .catch(next);
+};
+
+export const deleteProject = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { project_id } = req.params;
+  deleteProjectById(project_id)
+    .then((response: string) => {
+      res.status(200).send(response);
     })
     .catch(next);
 };

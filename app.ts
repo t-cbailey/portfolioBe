@@ -9,6 +9,7 @@ const {
   sendContactFrom,
   getUsers,
   postProject,
+  deleteProject,
 } = require("./controllers");
 
 const app: Express = express();
@@ -23,6 +24,7 @@ app.post("/api/contact", sendContactFrom);
 app.get("/api/users/", getUsers);
 app.get("/api/users/:user_id", getUser);
 app.post("/api/projects", postProject);
+app.delete("/api/projects/:project_id", deleteProject);
 
 app.all("*", (req: Request, res: Response) =>
   res.status(404).send({ message: "Endpoint Not Found" })

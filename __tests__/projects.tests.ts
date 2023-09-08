@@ -91,3 +91,33 @@ describe("POST /api/projects", () => {
       });
   });
 });
+
+describe("DELETE /api/projects/:project_id", () => {
+  test("should remove correct project", () => {
+    return request(app)
+      .delete("/api/projects/project_1")
+      .expect(200)
+      .then((res) => {
+        expect(res.text).toBe("project_1 deleted successfully");
+      })
+      .then(() => {
+        return request(app)
+          .get("/api/projects")
+          .expect(200)
+          .then((res) => {
+            expect(res.body.data.length).toBe(1);
+          });
+      })
+      .then(() => {
+        return request(app)
+          .get("/api/projects/project_1")
+          .expect(404)
+          .then((res) => {
+            console.log(res);
+            expect(res.body).toEqual({
+              msg: "No project found for project name: project_1",
+            });
+          });
+      });
+  });
+});

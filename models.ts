@@ -2,6 +2,8 @@ import db from "./db/connection";
 import { EmailBody, Project, ProjectRes, User } from "./types/CustomTypes";
 const nodemailer = require("nodemailer");
 import { auth } from "./EmailAuth.json";
+import { doc, deleteDoc } from "firebase/firestore";
+import { response } from "express";
 
 exports.findAllProjects = (): Promise<Project[]> => {
   return db
@@ -104,6 +106,22 @@ export const postNewProject = (project: Project) => {
       .set(newProject)
       .then(() => {
         return "created successfully";
+      })
+      .catch((err) => {
+        return Promise.reject({ status: 500, msg: err });
       });
   });
+};
+
+export const deleteProjectById = (project_id: string) => {
+  return db
+    .collection("projects")
+    .doc(project_id)
+    .delete()
+    .then(() => {
+      return `${project_id} deleted successfully`;
+    })
+    .catch((err) => {
+      return Promise.reject({ status: 500, msg: err });
+    });
 };
