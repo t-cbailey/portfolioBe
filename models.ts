@@ -2,8 +2,6 @@ import db from "./db/connection";
 import { EmailBody, Project, ProjectRes, User } from "./types/CustomTypes";
 const nodemailer = require("nodemailer");
 import { auth } from "./EmailAuth.json";
-import { doc, deleteDoc } from "firebase/firestore";
-import { response } from "express";
 
 exports.findAllProjects = (): Promise<Project[]> => {
   return db

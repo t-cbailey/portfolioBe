@@ -29,6 +29,7 @@ describe("GET /api/projects", () => {
           expect(typeof project.githubFE).toBe("string");
           expect(typeof project.livelink).toBe("string");
           expect(typeof project.stack).toBe("string");
+          expect(typeof project.id).toBe("string");
         });
       });
   });
@@ -40,14 +41,15 @@ describe("GET /api/projects:project_id", () => {
       .get("/api/projects/project_1")
       .expect(200)
       .then((res) => {
-        expect(typeof res.body.data.name).toBe("string");
-        expect(typeof res.body.data.imgURLwebm).toBe("string");
-        expect(typeof res.body.data.imgURLmp4).toBe("string");
-        expect(typeof res.body.data.description).toBe("string");
-        expect(typeof res.body.data.githubBE).toBe("string");
-        expect(typeof res.body.data.githubFE).toBe("string");
-        expect(typeof res.body.data.livelink).toBe("string");
-        expect(typeof res.body.data.stack).toBe("string");
+        const project = res.body.data;
+        expect(typeof project.name).toBe("string");
+        expect(typeof project.imgURLwebm).toBe("string");
+        expect(typeof project.imgURLmp4).toBe("string");
+        expect(typeof project.description).toBe("string");
+        expect(typeof project.githubBE).toBe("string");
+        expect(typeof project.githubFE).toBe("string");
+        expect(typeof project.livelink).toBe("string");
+        expect(typeof project.stack).toBe("string");
       });
   });
 });
@@ -86,7 +88,47 @@ describe("POST /api/projects", () => {
               expect(typeof project.githubFE).toBe("string");
               expect(typeof project.livelink).toBe("string");
               expect(typeof project.stack).toBe("string");
+              expect(typeof project.id).toBe("string");
             });
+          });
+      });
+  });
+  test("should use the first unused number for the project id", () => {
+    const input: Project = {
+      name: "Test1",
+      imgURLmp4: "TEST.mp4",
+      imgURLwebm: "ncgames.webm",
+      description: "TEST description",
+      githubFE: "testlink",
+      githubBE: "testlink",
+      livelink: "testlink",
+      stack: "React, JavaScript, CSS, Jest, Supertest, NODE.js, PostgreSQL",
+    };
+    return request(app)
+      .delete("/api/projects/project_0")
+      .expect(200)
+      .then((res) => {
+        expect(res.text).toBe("project_0 deleted successfully");
+      })
+      .then(() => {
+        return request(app)
+          .post("/api/projects")
+          .send(input)
+          .expect(201)
+          .then((res) => {
+            expect(res.text).toBe("created successfully");
+          })
+          .then(() => {
+            return request(app)
+              .get("/api/projects")
+              .expect(200)
+              .then((res) => {
+                console.log(res.body.data);
+                expect(res.body.data.length).toBe(2);
+                const createdProject = res.body.data[0];
+                expect(createdProject.name).toBe("Test1");
+                expect(createdProject.id).toBe("project_0");
+              });
           });
       });
   });
