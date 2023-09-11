@@ -123,7 +123,6 @@ describe("POST /api/projects", () => {
               .get("/api/projects")
               .expect(200)
               .then((res) => {
-                console.log(res.body.data);
                 expect(res.body.data.length).toBe(2);
                 const createdProject = res.body.data[0];
                 expect(createdProject.name).toBe("Test1");
@@ -158,6 +157,125 @@ describe("DELETE /api/projects/:project_id", () => {
             expect(res.body).toEqual({
               msg: "No project found for project name: project_1",
             });
+          });
+      });
+  });
+});
+
+describe("PATCH /api/projects/:project_id", () => {
+  test("should patch a single property of Project", () => {
+    const input = { name: "NAME_CHANGED" };
+    return request(app)
+      .patch("/api/projects/project_1")
+      .send(input)
+      .expect(200)
+      .then((res) => {
+        expect(res.text).toBe("changes successful");
+      })
+      .then(() => {
+        return request(app)
+          .get("/api/projects")
+          .expect(200)
+          .then((res) => {
+            expect(res.body.data.length).toBe(2);
+            const patchedProject = res.body.data[1];
+            expect(patchedProject.name).toBe("NAME_CHANGED");
+            expect(patchedProject.stack).toBe(
+              "React, JavaScript, CSS, Jest, Supertest, NODE.js, PostgreSQL"
+            );
+            expect(patchedProject.imgURLmp4).toBe("ncgames.mp4");
+            expect(patchedProject.imgURLwebm).toBe("ncgames.webm");
+            expect(patchedProject.description).toBe(
+              "NC games is a Reddit style app, that allows users to sign in post and review their favourite board games. I built the app alone as a sprint on the Northcoders software developer bootcamp using React, JavaScript, CSS and HTML. The Database is PostreSQL, and the backend is Express. The app uses Optimistic rendering for the rating and add comment functions, and is fully responsive in its design for a smooth user experience."
+            );
+            expect(patchedProject.githubFE).toBe(
+              "https://github.com/t-cbailey/fe-NC-Games"
+            );
+            expect(patchedProject.githubBE).toBe(
+              "https://github.com/t-cbailey/backend-NC-Games"
+            );
+            expect(patchedProject.livelink).toBe(
+              "https://timbaileyncgames.netlify.app/"
+            );
+            expect(patchedProject.stack).toBe(
+              "React, JavaScript, CSS, Jest, Supertest, NODE.js, PostgreSQL"
+            );
+          });
+      });
+  });
+  test("should patch a single property of Project", () => {
+    const input = { githubFE: "LINK_CHANGED" };
+    return request(app)
+      .patch("/api/projects/project_1")
+      .send(input)
+      .expect(200)
+      .then((res) => {
+        expect(res.text).toBe("changes successful");
+      })
+      .then(() => {
+        return request(app)
+          .get("/api/projects")
+          .expect(200)
+          .then((res) => {
+            expect(res.body.data.length).toBe(2);
+            const patchedProject = res.body.data[1];
+            expect(patchedProject.name).toBe("NCGames");
+            expect(patchedProject.stack).toBe(
+              "React, JavaScript, CSS, Jest, Supertest, NODE.js, PostgreSQL"
+            );
+            expect(patchedProject.imgURLmp4).toBe("ncgames.mp4");
+            expect(patchedProject.imgURLwebm).toBe("ncgames.webm");
+            expect(patchedProject.description).toBe(
+              "NC games is a Reddit style app, that allows users to sign in post and review their favourite board games. I built the app alone as a sprint on the Northcoders software developer bootcamp using React, JavaScript, CSS and HTML. The Database is PostreSQL, and the backend is Express. The app uses Optimistic rendering for the rating and add comment functions, and is fully responsive in its design for a smooth user experience."
+            );
+            expect(patchedProject.githubFE).toBe("LINK_CHANGED");
+            expect(patchedProject.githubBE).toBe(
+              "https://github.com/t-cbailey/backend-NC-Games"
+            );
+            expect(patchedProject.livelink).toBe(
+              "https://timbaileyncgames.netlify.app/"
+            );
+            expect(patchedProject.stack).toBe(
+              "React, JavaScript, CSS, Jest, Supertest, NODE.js, PostgreSQL"
+            );
+          });
+      });
+  });
+  test("should patch multiple props of Project", () => {
+    const input = { githubFE: "LINK_CHANGED", name: "NAME_CHANGED" };
+    return request(app)
+      .patch("/api/projects/project_1")
+      .send(input)
+      .expect(200)
+      .then((res) => {
+        expect(res.text).toBe("changes successful");
+      })
+      .then(() => {
+        return request(app)
+          .get("/api/projects")
+          .expect(200)
+          .then((res) => {
+            expect(res.body.data.length).toBe(2);
+            const patchedProject = res.body.data[1];
+            expect(patchedProject.name).toBe("NAME_CHANGED");
+            expect(patchedProject.stack).toBe(
+              "React, JavaScript, CSS, Jest, Supertest, NODE.js, PostgreSQL"
+            );
+            expect(patchedProject.imgURLmp4).toBe("ncgames.mp4");
+            expect(patchedProject.imgURLwebm).toBe("ncgames.webm");
+            expect(patchedProject.description).toBe(
+              "NC games is a Reddit style app, that allows users to sign in post and review their favourite board games. I built the app alone as a sprint on the Northcoders software developer bootcamp using React, JavaScript, CSS and HTML. The Database is PostreSQL, and the backend is Express. The app uses Optimistic rendering for the rating and add comment functions, and is fully responsive in its design for a smooth user experience."
+            );
+            expect(patchedProject.githubFE).toBe("LINK_CHANGED");
+            expect(patchedProject.githubBE).toBe(
+              "https://github.com/t-cbailey/backend-NC-Games"
+            );
+            expect(patchedProject.livelink).toBe(
+              "https://timbaileyncgames.netlify.app/"
+            );
+            expect(patchedProject.stack).toBe(
+              "React, JavaScript, CSS, Jest, Supertest, NODE.js, PostgreSQL"
+            );
           });
       });
   });
