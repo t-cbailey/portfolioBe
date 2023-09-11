@@ -1,5 +1,11 @@
 import db from "./db/connection";
-import { EmailBody, Project, ProjectRes, User } from "./types/CustomTypes";
+import {
+  EmailBody,
+  Project,
+  ProjectRes,
+  User,
+  ProjectPatchReq,
+} from "./types/CustomTypes";
 const nodemailer = require("nodemailer");
 import { auth } from "./EmailAuth.json";
 
@@ -130,6 +136,19 @@ export const deleteProjectById = (project_id: string) => {
     .delete()
     .then(() => {
       return `${project_id} deleted successfully`;
+    })
+    .catch((err) => {
+      return Promise.reject({ status: 500, msg: err });
+    });
+};
+
+export const patchProjectById = (project_id: string, body: ProjectPatchReq) => {
+  return db
+    .collection("projects")
+    .doc(project_id)
+    .update({ ...body })
+    .then((res) => {
+      return res;
     })
     .catch((err) => {
       return Promise.reject({ status: 500, msg: err });

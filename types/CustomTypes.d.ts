@@ -30,3 +30,14 @@ export interface User {
   email: string;
   password: string;
 }
+
+export interface ProjectPatchReq {
+  name?: string;
+  imgURLwebm?: string;
+  imgURLmp4?: string;
+  description?: string;
+  githubFE?: string;
+  githubBE?: string;
+  livelink?: string;
+  stack?: string;
+}

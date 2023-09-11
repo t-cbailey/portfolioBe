@@ -6,6 +6,7 @@ const {
   getUserByID,
   postNewProject,
   deleteProjectById,
+  patchProjectById,
 } = require("./models");
 import { NextFunction, Request, RequestHandler, Response } from "express";
 import endpoints from "./endpoints.json";
@@ -88,6 +89,20 @@ export const deleteProject = (
   deleteProjectById(project_id)
     .then((response: string) => {
       res.status(200).send(response);
+    })
+    .catch(next);
+};
+
+export const patchProject = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { project_id } = req.params;
+  const { body } = req;
+  patchProjectById(project_id, body)
+    .then(() => {
+      res.status(200).send("changes successful");
     })
     .catch(next);
 };
