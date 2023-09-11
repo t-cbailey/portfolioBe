@@ -7,6 +7,7 @@ const supertest_1 = __importDefault(require("supertest"));
 const app_1 = __importDefault(require("../app"));
 const seed_1 = require("../db/seed");
 beforeEach(() => (0, seed_1.seedDatabase)());
+afterAll(() => (0, seed_1.seedDatabase)());
 describe("GET /api/ non-existent endpoint", () => {
     test("GET /api/nonsense should return 404 status code", () => {
         return (0, supertest_1.default)(app_1.default).get("/api/nonsense").expect(404);
@@ -49,20 +50,70 @@ describe("GET /api/projects:project_id", () => {
         });
     });
 });
-describe("POST /api/contact", () => {
-    test("POST /api/contact", () => {
-        const data = {
-            email: "example@hotmail.com",
-            name: "tim bailey",
-            messageBody: "test email",
-            subject: "food is tasty",
+describe("POST /api/projects", () => {
+    test("POST /api/projects", () => {
+        const input = {
+            name: "Test1",
+            imgURLmp4: "TEST.mp4",
+            imgURLwebm: "ncgames.webm",
+            description: "TEST description",
+            githubFE: "testlink",
+            githubBE: "testlink",
+            livelink: "testlink",
+            stack: "React, JavaScript, CSS, Jest, Supertest, NODE.js, PostgreSQL",
         };
         return (0, supertest_1.default)(app_1.default)
-            .post("/api/contact")
-            .send(data)
-            .expect(202)
+            .post("/api/projects")
+            .send(input)
+            .expect(201)
             .then((res) => {
-            expect(res.text).toBe("message sent");
+            expect(res.text).toBe("created successfully");
+        })
+            .then(() => {
+            return (0, supertest_1.default)(app_1.default)
+                .get("/api/projects")
+                .expect(200)
+                .then((res) => {
+                expect(res.body.data.length).toBe(3);
+                res.body.data.forEach((project) => {
+                    expect(typeof project.name).toBe("string");
+                    expect(typeof project.imgURLwebm).toBe("string");
+                    expect(typeof project.imgURLmp4).toBe("string");
+                    expect(typeof project.description).toBe("string");
+                    expect(typeof project.githubBE).toBe("string");
+                    expect(typeof project.githubFE).toBe("string");
+                    expect(typeof project.livelink).toBe("string");
+                    expect(typeof project.stack).toBe("string");
+                });
+            });
+        });
+    });
+});
+describe("DELETE /api/projects/:project_id", () => {
+    test("should remove correct project", () => {
+        return (0, supertest_1.default)(app_1.default)
+            .delete("/api/projects/project_1")
+            .expect(200)
+            .then((res) => {
+            expect(res.text).toBe("project_1 deleted successfully");
+        })
+            .then(() => {
+            return (0, supertest_1.default)(app_1.default)
+                .get("/api/projects")
+                .expect(200)
+                .then((res) => {
+                expect(res.body.data.length).toBe(1);
+            });
+        })
+            .then(() => {
+            return (0, supertest_1.default)(app_1.default)
+                .get("/api/projects/project_1")
+                .expect(404)
+                .then((res) => {
+                expect(res.body).toEqual({
+                    msg: "No project found for project name: project_1",
+                });
+            });
         });
     });
 });

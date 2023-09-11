@@ -24,3 +24,9 @@ export interface EmailBody {
   subject: string;
   messageBody: string;
 }
+
+export interface User {
+  id: string;
+  email: string;
+  password: string;
+}
